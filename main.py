@@ -1,50 +1,54 @@
 import pygame 
 import random
 
-# criar a tela do jogo
+# criar a SCREEN do jogo
 pygame.init()
 
-largura = 1200
-altura = 800
+LARGURA = 1200
+ALTURA = 800
 
 pygame.display.set_caption("Snake Game")
-TELA = pygame.display.set_mode((largura, altura))
+SCREEN = pygame.display.set_mode((LARGURA, ALTURA))
 relogio = pygame.time.Clock()
 
 # Cores o jogo
 
 BGND = (0, 0, 0)
-TEXTO = (255, 255, 255)
-SNAKE = (255, 255, 0)
-FRUTA = (0, 255, 0)
+TEXT = (255, 255, 255)
+SNAKE_COLOR = (255, 255, 0)
+FRUIT_COLOR = (0, 255, 0)
 
-# Gerar Frutas
-def gerar_fruta():
-    x = round(random.randrange(0, (largura - TAMANHO) / TAMANHO * TAMANHO))
-    y = round(random.randrange(0, (altura - TAMANHO) / TAMANHO * TAMANHO))
+# Gerar FRUIT_COLORs
+def gerar_fruit():
+    x = round(random.randrange(0, (LARGURA - SIZE) / SIZE * SIZE))
+    y = round(random.randrange(0, (ALTURA - SIZE) / SIZE * SIZE))
     return x, y
 
 # Parâmetros do jogos
 FPS = 60
-TAMANHO = 20
+SIZE = 20
 
-# Desenhar fruta
-def desenhar_fruta(cor, tamanho, fruta_x, fruta_y):
-    pygame.draw.rect(TELA ,cor, [fruta_x, fruta_y, tamanho, tamanho])
+# Pârametros da cobrinha
+def draw_snake(size, pos):
+    pygame.draw.rect(SCREEN, SNAKE_COLOR, [pos[0], pos[1], SIZE, SIZE] )
+
+# Desenhar FRUIT_COLOR
+def desenhar_fruit(cor, tamanho, FRUIT_COLOR_x, FRUIT_COLOR_y):
+    pygame.draw.rect(SCREEN ,cor, [FRUIT_COLOR_x, FRUIT_COLOR_y, tamanho, tamanho])
 
 # jogo
 def jogo():
     running = True
-    fruta_x, fruta_y = gerar_fruta()
+    fruit_x, fruit_y = gerar_fruit()
 
     while running:
-        TELA.fill(BGND)
+        SCREEN.fill(BGND)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-        desenhar_fruta(FRUTA, TAMANHO, fruta_x, fruta_y)
+        desenhar_fruit(FRUIT_COLOR, SIZE, fruit_x, fruit_y)
         pygame.display.update()
         relogio.tick(FPS)
 
